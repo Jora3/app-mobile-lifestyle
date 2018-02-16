@@ -1,0 +1,65 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+  <div class="suggestion-publication">
+    <div>
+      <img src="http://image-lifestyle.000webhostapp.com/images/{{publication.bazar.photo}}.jpg">
+    </div>
+    <div class="fil-content-information">
+      <p class="inforamtion-publication">Information du style</p>
+    </div>
+  </div>
+  <ion-row>
+    <ion-col col-12>
+      <h6 style="font-size: 13px; text-align: center; color: #70adff;">Vous pouvez suggerer des styles à vos amis</h6>
+      <p style="color: #303233; text-align: center;">{{information}}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!listAmis && !information">
+    <ion-col col-5></ion-col>
+    <ion-col col-2>
+      <ion-spinner></ion-spinner>
+    </ion-col>
+    <ion-col col-5></ion-col>
+  </ion-row>
+
+  <div class="list-amis">
+    <ion-list *ngFor="let ami of listAmis">
+      <ion-row class="suggestion-ami" no-padding no-margin>
+        <ion-col col-4 no-padding no-margin>
+          <img class="image-logo-rec" src="http://image-lifestyle.000webhostapp.com/images/user.jpg">
+        </ion-col>
+
+        <ion-col col-8 no-padding no-margin>
+          <div class="content-suggestion-nom">
+            <p>{{ami.nom}} {{ami.prenom}}</p>
+          </div>
+          <div class="content-suggestion-info">
+            <ion-row>
+              <ion-col col-md-6>
+                <ion-note>
+                  <p>{{ami.sexe}}</p>
+                </ion-note>
+              </ion-col>
+              <ion-col col-md-6>
+                <button id="{{ami.personneId}}" class="boutton-suggestion" (click)="doSuggerer(ami.personneId)">
+                  Suggerer
+                </button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="white">
+    <button no-margin right ion-button small clear (click)="doTerminer()">Terminer</button>
+  </ion-toolbar>
+</ion-footer>

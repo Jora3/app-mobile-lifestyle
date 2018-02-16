@@ -1,0 +1,68 @@
+<ion-header></ion-header>
+
+<ion-content style="overflow: hidden; background-color: #f9f9f9;" fixed>
+  <div class="content-login" fixed>
+    <div style="text-align: center; margin-top: 10%; margin-bottom: 5%;">
+      <h1 style="font-size: 2em; color: #488aff;">Styles</h1>
+      <ion-note style="color: black;">Identifiant</ion-note>
+    </div>
+
+    <div *ngIf="isValidAddresse" style="text-align: center;">
+      <ion-row no-padding>
+        <ion-col no-padding col-12>
+          <img class="profile-image" src="http://image-lifestyle.000webhostapp.com/images/user.jpg">
+        </ion-col>
+        <ion-col col-12>
+          <strong>{{userLog.nomComplet}}</strong>
+        </ion-col>
+        <ion-col col-12>
+          <p (click)="initLogin()">Je ne suis pas {{userLog.nomComplet}}.</p>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-row>
+      <ion-col col-12>
+        <p style="text-align: center; color: red;">{{information}}</p>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="isLoadingData" style="text-align: center;">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoadingData">
+      <ion-row>
+        <ion-col col-12 no-padding>
+          <ion-item *ngIf="!isValidAddresse" no-margin no-padding fixed style="background-color: transparent;">
+            <ion-label class="label-login" floating>
+              <ion-icon class="icon-login" name="person" left></ion-icon>
+              Addresse mail ou mobile
+            </ion-label>
+            <ion-input [(ngModel)]="addresse" class="input-login" type="text" required></ion-input>
+          </ion-item>
+
+          <ion-item no-margin no-padding style="background-color: transparent;">
+            <ion-label class="label-login" floating>
+              <ion-icon class="icon-login" name="lock" left></ion-icon>
+              Mots de passe
+            </ion-label>
+            <ion-input [(ngModel)]="password" class="input-login" type="password" required></ion-input>
+          </ion-item>
+          <button ion-button class="boutton-login" outline (click)="doLogin()">Se connecter</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="text-align: center;">
+        <ion-col style="color: #343434" col-12>
+          <p (click)="goTopassforget()">Mots de passe oublié?</p>
+        </ion-col>
+        <ion-col col-12>
+          <p (click)="goToinscription()">S'inscrire?</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer></ion-footer>

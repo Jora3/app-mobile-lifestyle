@@ -1,0 +1,55 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content class="content-listsuggestions">
+  <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>
+
+  <ion-row>
+    <ion-col col-12>
+      <h6 style="font-size: 13px; text-align: center; color: #70adff;">Suggeré le meilleur style de la journé à des
+        amis</h6>
+      <p style="color: #303233; text-align: center;">{{information}}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!suggestions && !information">
+    <ion-col col-5></ion-col>
+    <ion-col col-2>
+      <ion-spinner></ion-spinner>
+    </ion-col>
+    <ion-col col-5></ion-col>
+  </ion-row>
+
+  <ion-list *ngFor="let suggestion of suggestions">
+    <div class="full-content-suggestion">
+      <div class="entete-suggestion">
+        <ion-item no-lines no-margin>
+          <ion-avatar item-start>
+            <img src="http://image-lifestyle.000webhostapp.com/images/user.jpg">
+          </ion-avatar>
+          <p>{{suggestion.personne.nom}} {{suggestion.personne.prenom}}</p>
+          <ion-note> a suggeré ce Style à {{suggestion.personnes.length}} personne(s).</ion-note>
+        </ion-item>
+      </div>
+      <div class="content-suggestion">
+        <ion-list *ngFor="let personne of suggestion.personnes">
+          <ion-item no-lines no-margin>
+            <ion-avatar item-start>
+              <img src="http://image-lifestyle.000webhostapp.com/images/user.jpg">
+            </ion-avatar>
+            <p style="font-size: 13px;">{{personne.nom}} {{personne.prenom}}
+              <ion-note style="float: right;">Il y a 12j</ion-note>
+            </p>
+            <ion-note style="color: #b6b6b6;">{{personne.sexe}}</ion-note>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

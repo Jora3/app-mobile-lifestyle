@@ -1,0 +1,53 @@
+<ion-header>
+</ion-header>
+
+<ion-content class="content-listcommentaires">
+  <ion-row>
+    <ion-col col-12>
+      <h6 style="font-size: 13px; text-align: center; color: #000000;">{{nombreCommentaires}} - Commentaires
+        presents</h6>
+    </ion-col>
+  </ion-row>
+  <hr/>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>
+
+  <ion-row *ngIf="!commentaires">
+    <ion-col col-5></ion-col>
+    <ion-col col-2>
+      <ion-spinner></ion-spinner>
+    </ion-col>
+    <ion-col col-5></ion-col>
+  </ion-row>
+
+  <ion-list *ngFor="let commentaire of commentaires">
+    <ion-row>
+      <ion-col col-1></ion-col>
+      <ion-col col-2>
+        <ion-item no-lines no-padding no-margin>
+          <ion-avatar item-start>
+            <img src="http://image-lifestyle.000webhostapp.com/images/user.jpg">
+          </ion-avatar>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-9>
+        <strong>{{commentaire.personneNom}} </strong> <br/> {{commentaire.commentaire}}
+        <ion-note style="float: right;">.Il y a 12h</ion-note>
+      </ion-col>
+      <hr/>
+    </ion-row>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col col-10>
+      <input [(ngModel)]="message" placeholder="Que pensez-vous du style?" class="fil-input-commentaire">
+    </ion-col>
+    <ion-col col-2>
+      <ion-icon name="ios-send" color="blue" class="icon-send" (click)="doSendCommentaire()"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,170 @@
+<ion-header>
+  <div class="profile-content">
+    <ion-row no-padding style="background-color: whitesmoke; padding-top: 1%">
+      <ion-col col-3>
+        <img class="profile-image" src="http://image-lifestyle.000webhostapp.com/images/user.jpg">
+      </ion-col>
+      <ion-col col-9>
+        <h4 style="font-size: 1.1em; color: cornflowerblue;">{{curUser.nomComplet}}</h4>
+        <p style="font-size: 0.9em;">{{curUser.nombreAbonnes}} abonnés - {{curUser.nombreAmis}} amis</p>
+      </ion-col>
+    </ion-row>
+    <ion-row no-margin no-padding class="profile-entete">
+      <ion-col col-3 no-padding>
+        <p id="FAVORIS" class="p-p p-inline" (click)="favoris()">Favoris</p>
+      </ion-col>
+      <ion-col col-3 no-padding>
+        <p id="ABONNE" class="p-p" (click)="abonnes()">Abonnés</p>
+      </ion-col>
+      <ion-col col-3 no-padding>
+        <p id="AMIS" class="p-p" (click)="amis()">Amis</p>
+      </ion-col>
+      <ion-col col-3 no-padding>
+        <p id="PUBLIE" class="p-p" (click)="publie()">Partage</p>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-header>
+
+<ion-content>
+  <br/>
+  <ion-refresher (ionRefresh)="doRefresh($event)"></ion-refresher>
+  <div *ngIf="isFavoris">
+    <div *ngIf="!mistyles && !information" style="text-align: center; margin-top: 3%;">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-list *ngFor="let mistyle of mistyles">
+      <div class="confidence-favoris">
+        <div style="background: whitesmoke;">
+          <ion-row no-padding>
+            <ion-col col-10>
+              <p style="font-size: 12px; color: #5e5e5e;">Visible {{getConfidence(mistyle)}}</p>
+              <ion-icon name=""></ion-icon>
+            </ion-col>
+            <ion-col col-2>
+              <ion-buttons end>
+                <button ion-button icon-only clear small (click)="showPopover($event, mistyle)">
+                  <ion-icon name="more"></ion-icon>
+                </button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <ion-row>
+          <ion-col col-12 no-padding no-margin>
+            <img class="image-favoris" src="http://image-lifestyle.000webhostapp.com/images/{{mistyle.styles.produit.photo}}.jpg">
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-12>
+            Information du style
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-list>
+  </div>
+
+  <div *ngIf="isAbonnes">
+    <!--<div *ngIf="!listAbonnes && !information" style="text-align: center;">
+      <ion-spinner></ion-spinner>
+    </div>-->
+    <p style="text-align: center; margin-top: 5px;">Les personnes abonnés s'affichent ici.</p>
+  </div>
+
+  <div *ngIf="isAmis" style="margin-top: 3%;">
+    <ion-row>
+      <ion-col col-4>
+        <p id="ICONAMIS" class="ion-personne info-in-line">
+          <ion-icon (click)="setIconBarAmis()" name="md-people"></ion-icon>
+        </p>
+      </ion-col>
+      <ion-col col-4>
+        <div *ngIf="!listAmis && !information" style="text-align: center;">
+          <ion-spinner></ion-spinner>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <p id="ICONADDS" class="ion-add-personne info-out-line">
+          <ion-icon (click)="setIconBarAddAmis()" name="md-person-add" ></ion-icon>
+        </p>
+      </ion-col>
+    </ion-row>
+    <hr/>
+
+    <div class="list-amis">
+      <ion-list *ngFor="let ami of listAmis">
+        <ion-row class="suggestion-ami" no-padding no-margin>
+          <ion-col col-4 no-padding no-margin>
+            <img class="image-logo-rec" src="http://image-lifestyle.000webhostapp.com/images/user.jpg">
+          </ion-col>
+
+          <ion-col col-8 no-padding no-margin>
+            <div class="content-suggestion-nom">
+              <p>{{ami.nom}} {{ami.prenom}}</p>
+            </div>
+            <div class="content-suggestion-info">
+              <ion-row>
+                <ion-col col-md-6>
+                  <ion-note> <p>{{ami.sexe}}</p> </ion-note>
+                </ion-col>
+                <ion-col col-md-6>
+                  <button *ngIf="isSuggestion" id="{{ami.personneId}}" (click)="doAjouter(ami)" class="boutton-suggestion">
+                    Ajouter
+                  </button>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </div>
+  </div>
+
+  <div *ngIf="isPublie">
+    <p style="text-align: center; margin-top: 5px;">Vos propres publications s'affichent ici.</p>
+    <div *ngIf="!listPublications && !information" style="text-align: center;">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-list *ngFor="let actualite of listPublications">
+      <div class="fil-content">
+        <img src="http://image-lifestyle.000webhostapp.com/images/{{actualite.publicationId}}.jpg">
+        <div class="fil-content-information">
+          <p>Description et quelques informations du Style</p>
+        </div>
+
+        <ion-row>
+          <ion-col col-4 align-items-center="">
+            <button  ion-button icon-left clear small class="info-out-line">
+              <ion-icon name="heart"></ion-icon>
+              {{actualite.adorer}}
+            </button>
+          </ion-col>
+
+          <ion-col col-4 align-items-center="">
+            <button ion-button icon-left clear small class="info-out-line">
+              <ion-icon name="thumbs-up"></ion-icon>
+              {{actualite.aimer}}
+            </button>
+          </ion-col>
+
+          <ion-col col-4>
+            <button ion-button icon-left clear small class="info-out-line">
+              <ion-icon name="thumbs-down"></ion-icon>
+              {{actualite.detester}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-list>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

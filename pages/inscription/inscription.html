@@ -1,0 +1,65 @@
+<ion-header ion-fixed>
+  <ion-navbar></ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #f9f9f9;" fixed>
+  <div class="content-login" fixed>
+    <div style="text-align: center; margin-top: 10%; margin-bottom: 5%;">
+      <h1 style="font-size: 2em; color: #488aff;">Styles</h1>
+      <ion-note style="color: black;  ">Créer un compte en quelques etapes.</ion-note>
+    </div>
+
+    <ion-row>
+      <ion-col col-12>
+        <p style="text-align: center; color: red;">{{information}}</p>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="loadingData" style="text-align: center;">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <div *ngIf="!loadingData">
+      <ion-row>
+        <ion-col col-12>
+          <ion-item no-margin no-padding fixed style="background-color: transparent;">
+            <ion-label class="label-login" floating>
+              <ion-icon class="icon-login" name="person" left></ion-icon>
+              Addresse mail
+            </ion-label>
+            <ion-input [(ngModel)]="mail" class="input-login" type="email" required></ion-input>
+          </ion-item>
+
+          <ion-item no-margin no-padding fixed style="background-color: transparent;">
+            <ion-label class="label-login" floating>
+              <ion-icon class="icon-login" name="lock" left></ion-icon>
+              Mots de passe
+            </ion-label>
+            <ion-input [(ngModel)]="password" class="input-login" type="password" required></ion-input>
+          </ion-item>
+
+          <ion-item no-margin no-padding style="background-color: transparent;">
+            <ion-label class="label-login" floating>
+              <ion-icon class="icon-login" name="lock" left></ion-icon>
+              Confirmer les mots de passe
+            </ion-label>
+            <ion-input [(ngModel)]="confirm" class="input-login" type="password" required></ion-input>
+          </ion-item>
+          <br/>
+          <p (click)="goToLogin()" style="color: #488aff; font-size: 12px;">J'ai déjà un compte.</p>
+
+          <ion-row>
+            <ion-col col-12>
+              <button ion-button class="boutton-login" outline (click)="next()">Next</button>
+            </ion-col>
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer></ion-footer>

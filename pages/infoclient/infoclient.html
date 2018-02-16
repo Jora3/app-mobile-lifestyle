@@ -1,0 +1,64 @@
+<ion-header ion-fixed>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #f9f9f9;" fixed>
+  <div class="content-login" fixed>
+    <div style="text-align: center; margin-top: 10%; margin-bottom: 5%;">
+      <h1 style="font-size: 2em; color: #488aff;">Styles</h1>
+      <ion-note style="color: black;  ">Quelques informations et nous y sommes presque.</ion-note>
+    </div>
+
+    <ion-row>
+      <ion-col col-12>
+        <p style="text-align: center; color: red;">{{information}}</p>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="loadingData" style="text-align: center;">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <div *ngIf="!loadingData">
+      <ion-item no-margin no-padding fixed style="background-color: transparent;">
+        <ion-label class="label-login" floating>
+          Nom
+        </ion-label>
+        <ion-input [(ngModel)]="nom" class="input-login" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item no-margin no-padding fixed style="background-color: transparent;">
+        <ion-label class="label-login" floating>
+          Prenom
+        </ion-label>
+        <ion-input [(ngModel)]="prenom" class="input-login" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item no-margin no-padding fixed style="background-color: transparent;">
+        <ion-label class="label-login" floating>
+          <ion-icon class="icon-login" name="calandar" left></ion-icon>
+          Date de naissance
+        </ion-label>
+        <ion-datetime [(ngModel)]="naissance" class="input-login" type="datetime" required></ion-datetime>
+      </ion-item>
+
+      <ion-item no-margin no-padding style="background-color: transparent; margin-top: 10px" no-lines>
+        <ion-label style="font-size: 13px;">Sexe</ion-label>
+        <ion-select [(ngModel)]="sexe" interface="action-sheet" style="font-size: 13px;" required>
+          <ion-option value="Homme" (ionSelect)="doSelect($event)">Homme</ion-option>
+          <ion-option value="Femme" (ionSelect)="doSelect($event)">Femme</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-row>
+        <ion-col col-12>
+          <button ion-button class="boutton-login" outline (click)="next()">Next</button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer></ion-footer>
